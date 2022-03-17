@@ -7,7 +7,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres
+        image: postgres:14.2
         env:
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
@@ -17,14 +17,16 @@ jobs:
           --health-interval 30s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - "5432:5432"
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: actions/setup-python@v3
         with:
           python-version: "3.9"
       - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
+        uses: snok/install-poetry@v1.3.1
         with:
           version: 1.1.13
           virtualenvs-create: true
@@ -35,4 +37,7 @@ jobs:
       - name: Connect to PostgreSQL
         run: poetry run python src/main.py
         env:
-          POSTGRES_HOST: postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432

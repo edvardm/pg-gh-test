@@ -3,11 +3,12 @@ from databases import Database
 import os
 
 DBHOST = os.getenv("POSTGRES_HOST", "localhost")
-DBUSER = os.getenv("DBUSER", "postgres")
+DBUSER = os.getenv("POSTGRES_USER", "postgres")
+DBPASS = os.getenv("POSTGRES_PASSWORD", "postgres")
 DBPOOL_MIN = os.getenv("DBPOOL_MIN", "2")
 DBPOOL_MAX = os.getenv("DBPOOL_MAX", "8")
 database = Database(
-    f"postgresql://{DBUSER}@{DBHOST}/test?min_size={DBPOOL_MIN}&max_size={DBPOOL_MAX}"
+    f"postgresql://{DBUSER}:{DBPASS}@{DBHOST}/test?min_size={DBPOOL_MIN}&max_size={DBPOOL_MAX}"
 )
 
 
