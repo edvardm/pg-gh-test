@@ -2,7 +2,7 @@ import asyncio
 from databases import Database
 import os
 
-DBHOST = os.getenv("DBHOST", "localhost")
+DBHOST = os.getenv("POSTGRES_HOST", "localhost")
 DBUSER = os.getenv("DBUSER", "postgres")
 DBPOOL_MIN = os.getenv("DBPOOL_MIN", "2")
 DBPOOL_MAX = os.getenv("DBPOOL_MAX", "8")
